@@ -45,9 +45,13 @@ function AuthPage() {
         data: { full_name: fullName, role },
       },
     });
-    setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) { setLoading(false); return toast.error(error.message); }
     if (data.user) {
+      if (role === "police") {
+        const { error: roleErr } = await supabase.from("user_roles").insert({ user_id: data.user.id, role: "police" });
+        if (roleErr) toast.error("Could not set Police role: " + roleErr.message);
+      }
+      setLoading(false);
       toast.success("Account created");
       if (data.session) goByRole(data.user.id);
       else toast.info("Check your email to confirm your account.");
