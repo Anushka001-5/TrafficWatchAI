@@ -10,6 +10,10 @@ problem statement.
 
 - **Live App (Frontend):** https://trafficvisionai.lovable.app
 - **Live ML API (Backend):** https://kuhu-01-traffic-backend.hf.space
+- ## Demo Access (Police Portal)
+Email: demo.police@trafficvisionai.com
+Password: demo@2026
+Note: Pre-provisioned demo account for evaluation purposes.
 
 ## Repository Structure
 
