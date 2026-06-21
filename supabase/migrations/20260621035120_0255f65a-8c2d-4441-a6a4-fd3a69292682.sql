@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.enforce_citizen_chalan_update() FROM PUBLIC, anon, authenticated;
