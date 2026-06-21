@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 import { toast } from "sonner";
 import { ShieldCheck } from "lucide-react";
 
@@ -21,7 +21,7 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState<"citizen" | "police">("citizen");
+  
 
   const goByRole = async (uid: string) => {
     const { data } = await supabase.from("user_roles").select("role").eq("user_id", uid).maybeSingle();
@@ -42,7 +42,7 @@ function AuthPage() {
       email, password,
       options: {
         emailRedirectTo: window.location.origin,
-        data: { full_name: fullName, role },
+        data: { full_name: fullName },
       },
     });
     setLoading(false);
@@ -84,19 +84,6 @@ function AuthPage() {
                   <div><Label>Full name</Label><Input required value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
                   <div><Label>Email</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
                   <div><Label>Password</Label><Input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
-                  <div>
-                    <Label>I am a</Label>
-                    <RadioGroup value={role} onValueChange={(v) => setRole(v as "citizen" | "police")} className="grid grid-cols-2 gap-3 mt-2">
-                      <label className="flex items-center gap-2 rounded-md border p-3 cursor-pointer hover:bg-secondary">
-                        <RadioGroupItem value="citizen" id="r-citizen" />
-                        <span>Citizen</span>
-                      </label>
-                      <label className="flex items-center gap-2 rounded-md border p-3 cursor-pointer hover:bg-secondary">
-                        <RadioGroupItem value="police" id="r-police" />
-                        <span>Traffic Police</span>
-                      </label>
-                    </RadioGroup>
-                  </div>
                   <Button type="submit" className="w-full" disabled={loading}>{loading ? "Creating..." : "Create account"}</Button>
                 </form>
               </TabsContent>
